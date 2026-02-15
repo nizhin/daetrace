@@ -7,7 +7,7 @@ document.documentElement.appendChild(iframe);
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.target !== 'offscreen') return false;
     console.log("hello offscreen");
-    
+
     // Listen for the message from the hosted iframe
     function handleIframeMessage({ data }) {
         try {
