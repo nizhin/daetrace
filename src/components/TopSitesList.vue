@@ -1,6 +1,7 @@
 <template>
-    <div class="card">
-        <DataTable :value="products" tableStyle="min-width: 50rem">
+    <div class="top-sites-card">
+        <h2 class="title">Top Sites</h2>
+        <DataTable :value="doms" tableStyle="min-width: 50rem">
             <Column field="domain" header="Domain"></Column>
             <Column field="timeSpent" header="Time Spent"></Column>
             <Column field="Category" header="Category"></Column>
@@ -11,8 +12,10 @@
 
 <script setup>
 import { ref } from 'vue';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
 
-const sessions = ref([
+const doms = ref([
     {
         domain: "youtube.com",
         timeSpent: "1h 12m",
@@ -22,3 +25,23 @@ const sessions = ref([
 ]);
 
 </script>
+
+<style scoped>
+.top-sites-card {
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+    border-radius: 24px;
+    padding: 26px 28px 30px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    margin-left: auto;
+}
+
+.title {
+    margin: 0 0 18px 0;
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+}
+
+</style>

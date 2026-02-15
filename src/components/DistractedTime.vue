@@ -25,7 +25,7 @@ import Card from 'primevue/card'
     background: #ffffff;
     border: 1px solid #f0f0f0;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-    width: 30%;
+    width: 100%;
     margin-left: auto;
 }
 
@@ -44,7 +44,6 @@ import Card from 'primevue/card'
     align-items: center;
     justify-content: center;
 }
-
 .icon-wrapper i {
     color: #f80000;
     font-size: 1.1rem;
