@@ -11,14 +11,17 @@
     ]
 },
 
-
   "permissions": [
     "tabs",
     "storage",
-    "idle"
+    "idle",
+    "offscreen",
+    "identity",
+    "identity.email"
   ],
 
   "host_permissions": [
+    "https://accounts.google.com/*",
     "<all_urls>"
   ],
 
