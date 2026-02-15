@@ -24,11 +24,6 @@ const router = createRouter({
       name: 'session',
       component: () => import('../views/Session.vue'),
       meta: { requiresAuth: true },
-    },
-    {
-      path: '/404',
-      name: 'not-found',
-      component: () => import('../views/NotFoundView.vue'),
     }
   ],
 })
