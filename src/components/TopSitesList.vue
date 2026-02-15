@@ -1,19 +1,21 @@
 <template>
-
-         <DataTable :value="topSites" tableStyle="min-width: 50rem">
-            <Column field="domain" header="Domain"></Column>
-            <Column field="timeSpent" header="Time Spent">
-                <template #body="{ data }">
-                    {{ formatTime(data.timeSpent) }}
-                </template>
-            </Column>
-            <Column field="category" header="Category"></Column>
-            <Column field="percent" header="% of Total">
-                <template #body="{ data }">
-                    {{ data.percent }}%
-                </template>
-            </Column>
-        </DataTable>
+  <div class="card">
+    <h2>Top Sites</h2>
+        <DataTable :value="topSites" tableStyle="min-width: 50rem">
+          <Column field="domain" header="Domain"></Column>
+          <Column field="timeSpent" header="Time Spent">
+              <template #body="{ data }">
+                  {{ formatTime(data.timeSpent) }}
+              </template>
+          </Column>
+          <Column field="category" header="Category"></Column>
+          <Column field="percent" header="% of Total">
+              <template #body="{ data }">
+                  {{ data.percent }}%
+              </template>
+          </Column>
+      </DataTable>
+  </div>
 </template>
 
 <script setup>

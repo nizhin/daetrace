@@ -19,14 +19,14 @@
         <!-- <ProdScore /> -->
       </div>
 
-      <div class="top-sites-container">
+      <div class="container">
         <Trends />  
       </div>
-      <div class="top-sites-container">
+      <div class="container">
         <ProductivityScoreTrends />  
       </div>
 
-      <div class="top-sites-container">
+      <div class="container">
         <TopSitesList />  
       </div>
 
@@ -100,7 +100,7 @@ const user = useCurrentUser();
   gap: 24px;
 }
 
-.top-sites-container {
+.container {
   grid-column: 1 / -1;
 }
 
