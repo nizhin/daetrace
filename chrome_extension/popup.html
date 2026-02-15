@@ -1,0 +1,176 @@
+<html>
+    <head>
+        <title>Daetrace Extension</title>
+        <!-- color vars -->
+        <style>
+        :root {
+            --primary-color: #1f7a4c;         
+            --primary-hover-color: #16663f;
+
+            --secondary-color: #4caf7d;       
+            --secondary-hover-color: #3d9568;
+
+            --accent-color: #8fd19e;           
+
+            --danger-color: #c0392b;           
+            --danger-hover-color: #992d22;
+
+            --success-color: #2e8b57;         
+            --success-light: #dff3e8;          
+            --background-color: #ffffff;       
+            --surface-color: #f4f6f5;          
+            --border-color: #dcdede;           
+
+            --text-color: #1f2a24;            
+            --text-light-color: #5f6f67;      
+        }
+            
+        #app {
+           padding: 20px;
+           background-color: var(--background-color);
+        }
+        html, body {
+            font-family: Arial, sans-serif;
+            padding: 0;
+            margin: 0;
+            width: 320px;
+            border-radius: 12px;
+            overflow: hidden;
+            border-radius: 4px;
+            border-color: var(--border-color);
+            border-width: 1px;
+            background-color: var(--background-color);
+        }
+        h1 {
+            color: var(--text-color);
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        h2 {
+            color: var(--text-light-color);
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: var(--primary-hover-color);
+        }
+        button.end-session {
+            background-color: var(--danger-color);
+        }
+        button.end-session:hover {
+            background-color: var(--danger-hover-color);
+        }
+        button:disabled {
+            background-color: var(--border-color);
+            cursor: not-allowed;
+        }
+        .status {
+            margin-top: 10px;
+            font-size: 14px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .status.signed-in {
+            color: var(--success-color);
+            background-color: var(--success-light);
+        }
+        .status.signed-out {
+            color: var(--text-light-color);
+            background-color: var(--surface-color);
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: var(--text-color);
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .session-info {
+            background-color: var(--surface-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .session-info.active {
+            background-color: var(--success-light);
+        }
+        .timer {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            color: var(--text-color);
+            margin: 10px 0;
+        }
+        .session-name {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            color: var(--text-light-color);
+        }
+        .end-time {
+            font-size: 14px;
+            text-align: center;
+            color: var(--text-light-color);
+            margin-top: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <h1>Daetrace</h1>
+            <div id="status" class="status signed-out">Not signed in</div>
+            
+            <!--Session Form -->
+            <div id="startSessionForm">
+                <h2>Start a Session</h2>
+                <div class="form-group">
+                    <label for="sessionName">Session Name</label>
+                    <input type="text" id="sessionName" placeholder="Deep Focus">
+                </div>
+                <div class="form-group">
+                    <label for="sessionDuration">Duration (minutes)</label>
+                    <input type="number" id="sessionDuration" placeholder="25" min="1">
+                </div>
+                <button id="startSessionButton">Start Session</button>
+            </div>
+            
+            <!-- Active Session -->
+            <div id="activeSession" class="session-info active hidden">
+                <div class="session-name" id="activeSessionName">Session Name</div>
+                <div class="timer" id="sessionTimer">00:00:00</div>
+                <div class="end-time">Target End: <span id="targetEndTime">--:--</span></div>
+                <button id="endSessionButton" class="end-session">End Session</button>
+            </div>
+        </div>
+    <script type="module" src="./popup.js"></script>
+    </body>
+</html>
