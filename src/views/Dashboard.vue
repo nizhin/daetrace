@@ -4,8 +4,8 @@
     <NavBar />
 
     <div class="header">
-      <h1 class="welcome">Welcome Alex</h1>
-      <div class="date-text">Sunday, February 15, 2026</div>
+      <h1 class="welcome">Welcome {{ name }}</h1>
+      <div class="date-text"> {{ formattedDate }}</div>
     </div>
 
     <div class="layout">
@@ -55,6 +55,20 @@ import ProductivityScoreTrends from '@/components/ProductivityScoreTrends.vue'
 
 
 const user = useCurrentUser();
+
+const name = computed(() => {
+  if (!user.value) return 'Guest';
+  return user.value.displayName ||'User';
+});
+
+
+
+const formattedDate = new Date().toLocaleDateString('en-US', { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
 
 
 </script>
