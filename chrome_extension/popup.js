@@ -136,3 +136,6 @@ window.addEventListener("load", () => {
 // Add event listeners
 document.getElementById("startSessionButton").addEventListener("click", startSession);
 document.getElementById("endSessionButton").addEventListener("click", endSession);
+document.getElementById("dashboardLink").addEventListener("click", () => {
+  chrome.tabs.create({ url: "https://daetrace1.web.app/" });
+});
