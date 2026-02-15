@@ -5,6 +5,7 @@
                 <Button
                     label="Log Out"
                     icon="pi pi-sign-out"
+                    severity="secondary"
                     @click="logout"
                 />
             </template>
@@ -18,9 +19,9 @@ import Menubar from 'primevue/menubar'
 import Button from 'primevue/button'
 
 const items = ref([
-    { label: 'Dashboard', icon: 'pi pi-home', route: '/'}, 
-    { label: 'Session', icon: 'pi pi-clock', route: '/session'}, 
-    { label: 'Category', icon: 'pi pi-list', route: '/category'},
+    { label: 'Home Page', icon: 'pi pi-home', route: '/'}, 
+    { label: 'Session Activity', icon: 'pi pi-clock', route: '/session'}, 
+    { label: 'Edit Categories', icon: 'pi pi-list', route: '/category'},
 ])
 
 const logout = () => {
