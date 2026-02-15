@@ -1,4 +1,4 @@
-# 👹 daeTrace
+# <img width="100" height="100" alt="pixilart-drawing" src="https://github.com/user-attachments/assets/cae910b8-3019-41f5-8501-b11e2600a4ca" /> daeTrace
 
 
 **daeTrace** is a dual-platform productivity suite consisting of a **Chrome Extension** and a **Web Dashboard**. It reframes productivity not as a struggle to end bad habits through force, but as a continuous process of **"mending"** one's relationship with time and attention.
@@ -40,6 +40,9 @@ Chrome Extension:
 * **Backend/Database:** Firebase Firestore (NoSQL)
 * **Authentication:** Firebase Auth (Google OAuth)
 * **Extension:** Chrome Extension API (Manifest V3)
+
+
+
 
 
 
