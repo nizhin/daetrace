@@ -14,7 +14,6 @@
                 </template>
             </Column>
         </DataTable>
-    </div>
 </template>
 
 <script setup>
@@ -25,21 +24,22 @@ import { useCollection, useCurrentUser } from 'vuefire';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 
-const doms = ref([
-    {
-        domain: "youtube.com",
-        timeSpent: "1h 12m",
-        category: "Not Productive",
-        percent: "25%"
-    }
-]);
+const user = useCurrentUser()
 
-const user = useCurrentUser();
 
- const q = query(collection(db, "users", user.value.uid, "entries"));
-  const entries = useCollection(q);
+const entriesQuery = computed(() => {
+  if (!user.value?.uid) return null;
+  return query(collection(db, "users", user.value.uid, "entries"));
+});
 
-  const domainsQuery = query(collection(db, "users", user.value.uid, "domains"))
+
+const entries = useCollection(entriesQuery);
+
+const domainsQuery = computed(() => {
+  if (!user.value?.uid) return null;
+  return query(collection(db, "users", user.value.uid, "domains"));
+});
+
   const domainCategories = useCollection(domainsQuery);
 
 

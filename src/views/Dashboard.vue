@@ -1,9 +1,4 @@
-<script setup>
-import DailyOverview from '@/components/DailyOverview.vue'
-</script>
-
 <template>
-  <NavBar />
 
   <div class="dashboard-container">
     <NavBar />
@@ -56,13 +51,11 @@ import ProdScore from '@/components/ProdScore.vue'
 import Trends from '@/components/Trends.vue'
 import TopSitesList from '@/components/TopSitesList.vue'
 import ProductivityScoreTrends from '@/components/ProductivityScoreTrends.vue'
-import TopSitesList from '@/components/TopSitesList.vue'
+
 
 
 const user = useCurrentUser();
 
-const entriesQuery = query(collection(db, "users", user.value.uid, "entries"), orderBy('startTime', 'desc', limit(50)));
-const entries = useCollection(entriesQuery);
 
 </script>
 

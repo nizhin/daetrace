@@ -114,10 +114,18 @@
   { label: 'Not Categorized', value: 'uncategorized' }
 ])
 
-  const q = query(collection(db, "users", user.value.uid, "entries"));
-  const entries = useCollection(q);
+  const entriesQuery = computed(() => {
+  if (!user.value?.uid) return null;
+  return query(collection(db, "users", user.value.uid, "entries"));
+});
+  const entries = useCollection(entriesQuery);
 
-  const domainsQuery = query(collection(db, "users", user.value.uid, "domains"))
+
+const domainsQuery = computed(() => {
+  if (!user.value?.uid) return null;
+  return query(collection(db, "users", user.value.uid, "domains"));
+});
+
   const domainCategories = useCollection(domainsQuery);
 
 
