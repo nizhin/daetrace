@@ -1,12 +1,10 @@
 
-// Import the functions you need from the SDKs you need from firebase cdn
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js'
 import { getFirestore, addDoc, getDoc, updateDoc, doc, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js'
 
-// TODO: Add SDKs for Firebase products that you want to use
+
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCG5rGAtx0reT03xXM7Q9_epwd3HkLJEOE",
   authDomain: "daetrace1.firebaseapp.com",
@@ -37,7 +35,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
-// --- Tab Tracking Logic ---
+// Tab Tracking Logic
 let activeTab = null;
 let startTime = null;
 let currentSessionId = null;
@@ -176,16 +174,16 @@ function handleTabChange(tabId) {
         console.log("Skipping invalid tab ID:", tabId);
     return;
   }
+
   chrome.tabs.get(tabId, async (tab) => {
     if (chrome.runtime.lastError || !tab) return;
 
     // End previous entry and save to Firestore
     if (activeTab && startTime && userEmail) {
       const endTime = Date.now();
-      const duration = Math.floor((endTime - startTime));
+      const duration = Math.floor((endTime - startTime) / 1000); // Convert to seconds
       const domain = getDomain(activeTab.url);
 
-      
       const entryData = {
         userId: userEmail,
         domain: domain,
