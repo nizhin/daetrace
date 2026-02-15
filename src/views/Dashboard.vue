@@ -3,6 +3,7 @@ import DailyOverview from '@/components/DailyOverview.vue'
 </script>
 
 <template>
+  <NavBar />
 
   <div class="dashboard-container">
     <NavBar />
@@ -36,14 +37,7 @@ import DailyOverview from '@/components/DailyOverview.vue'
 
     </div>
   </div>
-
-  <div>
-  <h3>Recent Entries</h3>
-      <div v-for="entry in entries" :key="entry.id">
-        <p>{{ entry.domain }} - {{ entry.durationSeconds }}s</p>
-        <small>{{ new Date(entry.startTime).toLocaleString() }}</small>
-      </div>
-  </div>
+ 
 
 
 </template>
@@ -62,6 +56,8 @@ import ProdScore from '@/components/ProdScore.vue'
 import Trends from '@/components/Trends.vue'
 import TopSitesList from '@/components/TopSitesList.vue'
 import ProductivityScoreTrends from '@/components/ProductivityScoreTrends.vue'
+import TopSitesList from '@/components/TopSitesList.vue'
+
 
 const user = useCurrentUser();
 

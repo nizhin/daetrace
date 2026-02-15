@@ -23,6 +23,9 @@ app.use(VueFire, {
 app.use(PrimeVue, {
   theme: {
     preset: Aura,
+    options: {
+        darkModeSelector: 'none',
+    }
   },
 });
 
