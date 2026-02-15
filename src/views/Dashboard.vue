@@ -20,6 +20,13 @@
       </div>
 
       <div class="top-sites-container">
+        <Trends />  
+      </div>
+      <div class="top-sites-container">
+        <ProductivityScoreTrends />  
+      </div>
+
+      <div class="top-sites-container">
         <TopSitesList />  
       </div>
 
@@ -48,7 +55,9 @@ import NavBar from '@/components/NavBar.vue'
 import FocusTime from '@/components/FocusTime.vue'
 import DistractedTime from '@/components/DistractedTime.vue'
 import ProdScore from '@/components/ProdScore.vue'
+import Trends from '@/components/Trends.vue'
 import TopSitesList from '@/components/TopSitesList.vue'
+import ProductivityScoreTrends from '@/components/ProductivityScoreTrends.vue'
 
 const user = useCurrentUser();
 
@@ -103,4 +112,3 @@ const entries = useCollection(entriesQuery);
 }
 
 </style>
-
