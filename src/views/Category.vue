@@ -77,6 +77,7 @@
                 :options="categoryOptions" 
                 @change="updateCategory(data)"
                 optionLabel="label"
+                optionValue="value"
               />
             </template>
           </Column>
