@@ -3,8 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import PrimeVue from "primevue/config";
 import Aura from "@primeuix/themes/aura";
-import { firebaseApp } from './firebase_conf'
 import { VueFire, VueFireAuth } from 'vuefire'
+import { firebaseApp } from './firebase_conf'
 import { getCurrentUser } from 'vuefire'
 
 
