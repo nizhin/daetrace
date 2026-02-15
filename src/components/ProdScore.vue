@@ -132,7 +132,8 @@ const setChartOptions = () => {
 }
 
 .title-icon {
-    
+    color: #10b981;
+    font-size: 17px;
 }
 
 </style>

@@ -14,19 +14,34 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import Menubar from 'primevue/menubar'
-import Button from 'primevue/button'
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import Menubar from "primevue/menubar";
+import Button from "primevue/button";
+
+const router = useRouter();
 
 const items = ref([
-    { label: 'Home Page', icon: 'pi pi-home', route: '/'}, 
-    { label: 'Session Activity', icon: 'pi pi-clock', route: '/session'}, 
-    { label: 'Edit Categories', icon: 'pi pi-list', route: '/category'},
-])
+  {
+    label: "Home Page",
+    icon: "pi pi-home",
+    command: () => router.push("/")
+  },
+  {
+    label: "Session Activity",
+    icon: "pi pi-clock",
+    command: () => router.push("/session")
+  },
+  {
+    label: "Edit Categories",
+    icon: "pi pi-list",
+    command: () => router.push("/category")
+  }
+]);
 
 const logout = () => {
-    console.log("Logging out...")
-}
+  router.push("/login");
+};
 </script>
 
 <style scoped>

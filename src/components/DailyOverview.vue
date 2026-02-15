@@ -1,23 +1,23 @@
 <template>
-    <div class="card flex justify-center">
-        <Chart 
-            type="doughnut" 
-            :data="chartData" 
-            :options="chartOptions" 
-            class="w-full md:w-[30rem]" 
-        />
+    <div class="overview-card">
+        <h2 class="card-title">Daily Overview</h2>
 
-        <div class="absolute inset=0 flex flex-col items-center justify-center pointer-events-none">
-            <p class="text-2xl font-semibold text-neutral-900">
-                6h 32m
-            </p>
-            <p class="text-sm text-neutral-500">Total Today</p>
+        <div class="content">
+            <div class="doughnut-wrap">
+                <Chart 
+                    type="doughnut" 
+                    :data="chartData" 
+                    :options="chartOptions" 
+                    class="donut" 
+                />
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
+import Chart from 'primevue/chart';
 
 onMounted(() => {
     chartData.value = setChartData();
@@ -63,3 +63,36 @@ const setChartOptions = () => {
     };
 };
 </script>
+
+<style scoped>
+.overview-card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 22px;
+    padding: 26px 28px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    min-height: 420px;
+}
+
+.card-title {
+    margin: 0 0 18px 0;
+    font-size: 30px;
+    font-weight: 800;
+    color: black;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 38px;
+    align-items: center;
+}
+
+.doughnut-wrap {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    margin-left: 12px;
+}
+
+</style>
