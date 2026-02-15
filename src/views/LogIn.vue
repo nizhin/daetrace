@@ -25,7 +25,7 @@ async function login() {
     } else {
       console.log("User already exists");
     }
-    router.push("/dashboard");
+    router.push("/");
   } catch {
     alert("login failed");
   }
