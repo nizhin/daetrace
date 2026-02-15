@@ -18,7 +18,11 @@
         <DistractedTime />
         <!-- <ProdScore /> -->
       </div>
-      
+
+      <div class="top-sites-container">
+        <TopSitesList />  
+      </div>
+
     </div>
   </div>
 
@@ -29,6 +33,8 @@
         <small>{{ new Date(entry.startTime).toLocaleString() }}</small>
       </div>
   </div>
+
+
 </template>
 
 <script setup>
@@ -42,6 +48,7 @@ import NavBar from '@/components/NavBar.vue'
 import FocusTime from '@/components/FocusTime.vue'
 import DistractedTime from '@/components/DistractedTime.vue'
 import ProdScore from '@/components/ProdScore.vue'
+import TopSitesList from '@/components/TopSitesList.vue'
 
 const user = useCurrentUser();
 
@@ -81,13 +88,18 @@ const entries = useCollection(entriesQuery);
 }
 
 .left-cards {
-  width: 100%;
+  grid-column: 1;
 }
 
 .right-cards {
   display: flex;
+  grid-column: 2;
   flex-direction: column;
   gap: 24px;
+}
+
+.top-sites-container {
+  grid-column: 1 / -1;
 }
 
 </style>

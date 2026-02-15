@@ -17,6 +17,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import Chart from 'primevue/chart';
 
 onMounted(() => {
     chartData.value = setChartData();
