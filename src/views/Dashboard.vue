@@ -5,16 +5,17 @@
  <div class="dashboard-container">
         <h1 class="mb-4">Dashboard</h1>
 
-        
+         <TopSitesList></TopSitesList>
   </div>
-
+ 
+<!-- 
   <div>
     <h3>Recent Entries</h3>
         <div v-for="entry in entries" :key="entry.id">
           <p>{{ entry.domain }} - {{ entry.durationSeconds }}s</p>
           <small>{{ new Date(entry.startTime).toLocaleString() }}</small>
-        </div>
-  </div>
+        </div> -->
+  <!-- </div> -->
 </template>
 
 
@@ -26,6 +27,7 @@ import { useCollection, useCurrentUser } from 'vuefire'
 import { useRouter } from 'vue-router'
 import DailyOverview from '@/components/DailyOverview.vue'
 import NavBar from '@/components/NavBar.vue'
+import TopSitesList from '@/components/TopSitesList.vue'
 
 
 const user = useCurrentUser();
