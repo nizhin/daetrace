@@ -9,9 +9,3 @@ import DailyOverview from '@/components/DailyOverview.vue'
     <DailyOverview />
   </div>
 </template>
-
-<style scoped>
-.dashboard-container {
-  padding: 2rem;
-}
-</style>
