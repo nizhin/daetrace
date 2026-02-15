@@ -1,7 +1,7 @@
 
 // Import the functions you need from the SDKs you need from firebase cdn
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js'
-import { getFirestore, addDoc, getDoc, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js'
+import { getFirestore, addDoc, getDoc, updateDoc, doc, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js'
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -65,6 +65,7 @@ async function findUserByEmail(email) {
     return null;
   }
 }
+
 async function saveEntry(entryData) {
   try {
     const userId = await findUserByEmail(userEmail);
@@ -80,7 +81,7 @@ async function saveEntry(entryData) {
     return null;
   }
 }
-  
+
 // duration in seconds
 async function startSession(intendedDuration = 0, name = "") {
   try {
@@ -89,17 +90,19 @@ async function startSession(intendedDuration = 0, name = "") {
         console.error("User not found in db, can't start session");
         return null;
     }
+
     let now = Date.now();
-    let end = new Date(now.getSeconds() + intendedDuration);
+    let end = now + (intendedDuration * 1000);
+
     const sessionData = {
       name: name,
       timeStart: now,
       timeEnd: end,
-      intendedDuration: intendedDuration,
+      intendedDuration: intendedDuration, // time in seconds
       actualDuration: 0,
       realEnd: null
     };
-    const docRef = await addDoc(collection(db, "users", userId, "sessions"), sessionData);
+    const docRef = await addDoc(collection(db, "users", userId, "sessions"), sessionData); 
     currentSessionId = docRef.id;
     // console.log("Session started:", currentSessionId);
     return currentSessionId;
@@ -110,6 +113,7 @@ async function startSession(intendedDuration = 0, name = "") {
 }
 async function endSession() {
     if (!currentSessionId || !userEmail) return;
+    saveCurrentEntry();
     const userId = await findUserByEmail(userEmail);
     if (!userId) {
         console.error("User not found in db, can't end session");
@@ -126,9 +130,10 @@ async function endSession() {
         }
         
         const sessionData = sessionSnap.data();
+        const now = Date.now();
         await updateDoc(sessionRef, {
-            realEnd: Date.now(),
-            actualDuration: Math.floor((Date.now() - sessionData.timeStart) / 1000)
+            realEnd: now,
+            actualDuration: Math.floor((now - sessionData.timeStart) / 1000) // time in seconds
         });
         // console.log("Session ended:", currentSessionId);
         currentSessionId = null;
@@ -144,7 +149,7 @@ function handleTabChange(tabId) {
     // End previous entry and save to Firestore
     if (activeTab && startTime && userEmail) {
       const endTime = Date.now();
-      const duration = Math.floor((endTime - startTime) / 1000);
+      const duration = Math.floor((endTime - startTime));
       const domain = getDomain(activeTab.url);
       
       const entryData = {
@@ -160,6 +165,7 @@ function handleTabChange(tabId) {
       if (duration > 0) {
         // console.log("Entry ended:", entryData);
         await saveEntry(entryData);
+
       } else {
         console.log("entry too short to log")
       }
@@ -180,22 +186,52 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   }
 });
 
+// save current entry for idle state
+async function saveCurrentEntry() {
+  if (activeTab && startTime && userEmail) {
+      const endTime = Date.now();
+      const duration = Math.floor((endTime - startTime) / 1000);
+      const domain = getDomain(activeTab.url);
+      
+    const entryData = {
+    userId: userEmail,
+    domain: domain,
+    url: activeTab.url,
+    startTime: startTime,
+    endTime: endTime,
+    durationSeconds: duration,
+    date: startTime,
+    sessionId: currentSessionId ?? null
+    };
+    if (duration > 0) {
+    // console.log("Entry ended:", entryData);
+    await saveEntry(entryData);
+    } else {
+    console.log("entry too short to log")
+    }
+    // Reset state
+    activeTab = null;
+    startTime = null;
+  }
+}
+
 // Handle idle state
 chrome.idle.onStateChanged.addListener((state) => {
   console.log("Idle state changed:", state);
   if (state === "idle" || state === "locked") {
     // End current entry when user goes idle
-    if (activeTab && startTime && userEmail) {
-      handleTabChange(-1); // Force save current entry
-    }
+    saveCurrentEntry();
   }
 });
 
 // Handle messages from popup
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'startSession') {
+    console.log("Starting session with duration:", message.duration, "and name:", message.name);
     startSession(message.duration, message.name)
       .then((sessionId) => {
+        console.log("Session started with ID:", sessionId);
+        currentSessionId = sessionId;
         sendResponse({ success: !!sessionId, sessionId: sessionId });
       })
       .catch((error) => {
@@ -208,6 +244,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'endSession') {
     endSession()
       .then(() => {
+        currentSessionId = null;
         sendResponse({ success: true });
       })
       .catch((error) => {
