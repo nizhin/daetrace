@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "DaeTrace",
+  "version": "1.0",
+  "description": "Tracks time spent on each tab and stores stats in Firebase.",
+  "oauth2": {
+    "client_id": "687664485709-1piqo0es2am2m0f17h1d6kaplc0g5kcr.apps.googleusercontent.com",
+    "scopes": [
+        "https://www.googleapis.com/auth/userinfo.email",
+        "https://www.googleapis.com/auth/userinfo.profile"
+    ]
+},
+
+
+  "permissions": [
+    "tabs",
+    "storage",
+    "idle"
+  ],
+
+  "host_permissions": [
+    "<all_urls>"
+  ],
+
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Tab Time Tracker"
+  },
+
+  "icons": {
+  }
+}
