@@ -2,7 +2,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js'
 import { getFirestore, addDoc, getDoc, updateDoc, doc, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js'
 
-
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
