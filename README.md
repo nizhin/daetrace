@@ -1,4 +1,4 @@
-# 👹daeTrace
+# 👹 daeTrace
 
 
 **daeTrace** is a dual-platform productivity suite consisting of a **Chrome Extension** and a **Web Dashboard**. It reframes productivity not as a struggle to "end" bad habits through force, but as a continuous process of **"mending"** one's relationship with time and attention.
