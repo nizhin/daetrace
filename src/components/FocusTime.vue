@@ -6,8 +6,8 @@
                     <i class="pi pi-bullseye text-green-500 text-lg"></i>
                 </div>
                 <div class="text-wrapper">
-                    <div class="title-text">Focus Time</div>
-                    <div class="time-text">3h 9m</div>
+                    <div class="title-text">Focus Session Time</div>
+                    <div class="time-text">{{ focusTimeText }}</div>
                 </div>
             </div>
         </template>
@@ -15,7 +15,50 @@
 </template>
 
 <script setup>
-import Card from 'primevue/card'
+import { computed } from "vue";
+import Card from "primevue/card";
+
+import { collection } from "firebase/firestore";
+import { db } from "@/firebase_conf";
+import { useCollection, useCurrentUser } from "vuefire";
+
+const user = useCurrentUser();
+
+const sessions = useCollection(
+  computed(() => {
+    if (!user.value?.uid) return null;
+    return collection(db, "users", user.value.uid, "sessions");
+  })
+);
+console.log(sessions.value)
+function isToday(ts) {
+  const d = ts?.toDate ? ts.toDate() : new Date(ts);
+  const today = new Date();
+  return (
+    d.getDate() === today.getDate() &&
+    d.getMonth() === today.getMonth() &&
+    d.getFullYear() === today.getFullYear()
+  );
+}
+
+//sum up all of today actualDurations
+const focusSeconds = computed(() => {
+  if (!sessions.value) return 0;
+
+  return sessions.value
+    .filter(s => s.timeStart && isToday(s.timeStart))
+    .reduce((sum, s) => sum + (s.actualDuration || 0), 0);
+});
+
+
+const focusTimeText = computed(() => {
+  const total = focusSeconds.value;
+  const hours = Math.floor(total / 3600);
+  const mins = Math.floor((total % 3600) / 60);
+
+  if (hours === 0) return `${mins}m`;
+  return `${hours}h ${mins}m`;
+});
 </script>
 
 <style scoped>
