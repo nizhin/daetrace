@@ -6,8 +6,8 @@
                     <i class="pi pi-eye-slash text-red-500 text-lg"></i>
                 </div>
                 <div class="text-wrapper">
-                    <div class="title-text">Distracted Time</div>
-                    <div class="time-text">1h 18m</div>
+                    <div class="title-text">Non-Focus Time</div>
+                    <div class="time-text">{{ distractedTimeText }}</div>
                 </div>
             </div>
         </template>
@@ -15,7 +15,66 @@
 </template>
 
 <script setup>
-import Card from 'primevue/card'
+import { computed } from "vue";
+import { collection, query } from "firebase/firestore";
+import { useCollection, useCurrentUser } from "vuefire";
+import { db } from "@/firebase_conf";
+import Card from "primevue/card";
+
+const user = useCurrentUser();
+
+const entries = useCollection(
+  computed(() => {
+    if (!user.value?.uid) return null;
+    return query(collection(db, "users", user.value.uid, "entries"));
+  })
+);
+
+const sessions = useCollection(
+  computed(() => {
+    if (!user.value?.uid) return null;
+    return query(collection(db, "users", user.value.uid, "sessions"));
+  })
+);
+
+const isTodayMs = (ms) => {
+  const d = new Date(ms);
+  const t = new Date();
+  return (
+    d.getFullYear() === t.getFullYear() &&
+    d.getMonth() === t.getMonth() &&
+    d.getDate() === t.getDate()
+  );
+};
+
+const formatTime = (seconds) => {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  if (hours > 0) return `${hours}h ${minutes}m`;
+  return `${minutes}m`;
+};
+
+const activeSecondsToday = computed(() => {
+  if (!entries.value) return 0;
+  return entries.value
+    .filter((e) => e.date && isTodayMs(e.date))
+    .reduce((sum, e) => sum + (e.durationSeconds || 0), 0);
+});
+
+const focusSecondsToday = computed(() => {
+  if (!sessions.value) return 0;
+  return sessions.value
+    .filter((s) => s.timeStart && isTodayMs(s.timeStart))
+    .reduce((sum, s) => sum + (s.actualDuration || 0), 0);
+});
+
+const distractedSecondsToday = computed(() =>
+  Math.max(0, activeSecondsToday.value - focusSecondsToday.value)
+);
+
+const distractedTimeText = computed(() =>
+  formatTime(distractedSecondsToday.value)
+);
 </script>
 
 <style scoped>
