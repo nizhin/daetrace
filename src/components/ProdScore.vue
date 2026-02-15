@@ -10,17 +10,17 @@
         </div>
     
         <div class="content">
-            <div class="title-row">
+            <div class="title">
                 <i class="pi pi-chart-line title-icon"></i>
                 <span class="title">Productivity Score</span>
             </div>
             <div class="desc">
-                Higher is better. based on time spent on productive sites.
+                Higher is better. Based on time spent on productive sites.
             </div>
             <div class="toggle">
-                <h4 class="today active">Today</h4>
-                <span class="divider"></span>
-                <h4 class="average">Average</h4>
+                <h5>Today</h5>
+                <span></span>
+                <h5>Average</h5>
             </div>
         </div>
     </div>
@@ -99,8 +99,9 @@ const setChartOptions = () => {
     height: 110px;
 }
 
-.title-row {
+.title {
     display: flex;
+    font-weight: bold;
     align-items: center;
     gap: 10px;
 }

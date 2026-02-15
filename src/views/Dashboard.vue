@@ -19,7 +19,7 @@
         <ProdScore />
       </div>
 
-      <div class="top-sites-container">
+      <div class="top-sites">
         <TopSitesList />  
       </div>
 
@@ -98,7 +98,7 @@ const entries = useCollection(entriesQuery);
   gap: 24px;
 }
 
-.top-sites-container {
+.top-sites {
   grid-column: 1 / -1;
 }
 

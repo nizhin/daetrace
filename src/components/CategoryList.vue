@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <DataTable :value="sessions" tableStyle="min-width: 50rem">
+        <DataTable :value="sessions">
             <Column field="domain" header="Domain"></Column>
             <Column field="timeSpent" header="Time Spent"></Column>
             <Column field="visits" header="Visits"></Column>
