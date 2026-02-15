@@ -3,7 +3,7 @@
 
 **daeTrace** is a dual-platform productivity suite consisting of a **Chrome Extension** and a **Web Dashboard**. It reframes productivity not as a struggle to end bad habits through force, but as a continuous process of **"mending"** one's relationship with time and attention.
 
-## 🚀 Key Features
+## Key Features
 
 ### Chrome Extension
 * **Activity Tracking:** Monitors active tabs and records duration per domain in real time.
@@ -16,7 +16,7 @@
 * **Domain Management:** A central hub to categorize websites and manage the restriction list.
 
 
-## 🏗️ Setup and Installation
+## Setup and Installation
 
 Web Dashboard:
 
@@ -35,7 +35,7 @@ Chrome Extension:
     5.You can then pin the extension for easy access
 
 
-## 🛠️ Technical Stack
+## Technical Stack
 * **Frontend:** Vue.js (Vue Router, VueFire)
 * **Backend/Database:** Firebase Firestore (NoSQL)
 * **Authentication:** Firebase Auth (Google OAuth)
