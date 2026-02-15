@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch} from 'vue';
 import { collection, query } from 'firebase/firestore';
 import { db } from '@/firebase_conf';
 import { useCollection, useCurrentUser } from 'vuefire';
@@ -46,6 +46,7 @@ const domainsQuery = computed(() => {
 
 
  const topSites = computed(() => {
+    if (!entries.value || entries.value.length === 0) return [];
   const domainMap = new Map()
   let totalTime = 0;
 
