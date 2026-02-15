@@ -1,3 +1,7 @@
+<script setup>
+import DailyOverview from '@/components/DailyOverview.vue'
+</script>
+
 <template>
 
   <div class="dashboard-container">

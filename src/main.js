@@ -1,16 +1,14 @@
-
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import PrimeVue from 'primevue/config';
-import Aura from '@primeuix/themes/aura';
 import 'primeicons/primeicons.css'
 import '@fontsource/inter/400.css'
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import PrimeVue from "primevue/config";
+import Aura from "@primeuix/themes/aura";
+import 'primeicons/primeicons.css'
 import { VueFire, VueFireAuth } from 'vuefire'
 import { firebaseApp } from './firebase_conf'
 import { getCurrentUser } from 'vuefire'
-
-
 
 const app = createApp(App);
 
