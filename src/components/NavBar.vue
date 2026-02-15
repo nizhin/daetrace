@@ -28,3 +28,15 @@ const logout = () => {
     console.log("Logging out...")
 }
 </script>
+
+<style scoped>
+.navbar-wrap {
+    padding: 12px 16px 0;
+}
+
+.topbar {
+    background: #ffffff;
+    border: 1px solid;
+}
+
+</style>
