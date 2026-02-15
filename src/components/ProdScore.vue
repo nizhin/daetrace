@@ -8,23 +8,20 @@
                 class="ring"
             />
         </div>
-        <div class="ring-center">
-            <span class="ring-score">{{  score }}</span>
-        </div>
-    </div>
-
-    <div class="content">
-        <div class="title-row">
-            <i class="pi pi-chart-line title-icon"></i>
-            <span class="title">Productivity Score</span>
-        </div>
-        <div class="desc">
-            Higher is better. based on time spent on productive sites.
-        </div>
-        <div class="toggle">
-            <button class="today active">Today</button>
-            <span class="divider"></span>
-            <button class="average">Average</button>
+    
+        <div class="content">
+            <div class="title-row">
+                <i class="pi pi-chart-line title-icon"></i>
+                <span class="title">Productivity Score</span>
+            </div>
+            <div class="desc">
+                Higher is better. based on time spent on productive sites.
+            </div>
+            <div class="toggle">
+                <h4 class="today active">Today</h4>
+                <span class="divider"></span>
+                <h4 class="average">Average</h4>
+            </div>
         </div>
     </div>
 </template>
@@ -86,9 +83,8 @@ const setChartOptions = () => {
     background: #ffffff;
     border: 1px solid #f0f0f0;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-    width: 30%;
+    width: 100%;
     margin-left: auto;
-    align-items: center;
 }
 
 .ring-wrap {
@@ -103,28 +99,6 @@ const setChartOptions = () => {
     height: 110px;
 }
 
-.ring-center {
-    position: absolute;
-    /* inset: 0; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* pointer-events: none; */
-}
-
-.ring-score {
-    font-size: 32px;
-    font-weight: bold;
-    color: #111;
-}
-
-.content {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    min-width: 0;
-}
-
 .title-row {
     display: flex;
     align-items: center;
@@ -134,6 +108,26 @@ const setChartOptions = () => {
 .title-icon {
     color: #10b981;
     font-size: 17px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+}
+
+.desc {
+    color: #6b7280;
+    font-size: 16px;
+}
+
+.toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+    border: none;
 }
 
 </style>

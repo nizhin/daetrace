@@ -16,7 +16,7 @@
       <div class="right-cards">
         <FocusTime />
         <DistractedTime />
-        <!-- <ProdScore /> -->
+        <ProdScore />
       </div>
 
       <div class="top-sites-container">

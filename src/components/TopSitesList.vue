@@ -1,10 +1,10 @@
 <template>
     <div class="top-sites-card">
         <h2 class="title">Top Sites</h2>
-        <DataTable :value="doms" tableStyle="min-width: 50rem">
-            <Column field="domain" header="Domain"></Column>
+        <DataTable :value="doms">
+            <Column field="domain" header="Domain" bodyStyle="text-align:center"></Column>
             <Column field="timeSpent" header="Time Spent"></Column>
-            <Column field="Category" header="Category"></Column>
+            <Column field="category" header="Category"></Column>
             <Column field="percent" header="% of Total"></Column>
         </DataTable>
     </div>
