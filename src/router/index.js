@@ -34,22 +34,5 @@ const router = createRouter({
   ],
 });
 
-async function requireAuth() {
-  const user = await getCurrentUser();
-  if (user) {
-    return true;
-  }
-
-  const auth = useFirebaseAuth();
-  const provider = new GoogleAuthProvider();
-  await signInWithRedirect(auth, provider);
-  return false;
-}
-
-router.beforeEach(async (to) => {
-  if (to.meta.requiresAuth) {
-    return await requireAuth();
-  }
-});
 
 export default router;

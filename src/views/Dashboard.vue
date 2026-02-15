@@ -4,6 +4,7 @@
 </template>
 
 <script>
+console.log('Signed out');
 export default {
   name: "Dashboard"
 };
