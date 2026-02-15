@@ -93,17 +93,15 @@ const formatTime = (seconds) => {
 </script>
 
 <style scoped>
-.top-sites-card {
-    background: #ffffff;
-    border: 1px solid #f0f0f0;
-    border-radius: 24px;
-    padding: 26px 28px 30px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    margin-left: auto;
+.card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
-.title {
+h2 {
     margin: 0 0 18px 0;
     font-size: 30px;
     font-weight: bold;
