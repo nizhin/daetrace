@@ -247,13 +247,13 @@ async function saveCurrentEntry() {
 }
 
 // Handle idle state
-chrome.idle.onStateChanged.addListener((state) => {
-  console.log("Idle state changed:", state);
-  if (state === "idle" || state === "locked") {
-    // End current entry when user goes idle
-    saveCurrentEntry();
-  }
-});
+// chrome.idle.onStateChanged.addListener((state) => {
+//   console.log("Idle state changed:", state);
+//   if (state === "idle" || state === "locked") {
+//     // End current entry when user goes idle
+//     saveCurrentEntry();
+//   }
+// });
 
 // Handle messages from popup adn content script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
