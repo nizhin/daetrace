@@ -1,10 +1,17 @@
+<script setup>
+import DailyOverview from '@/components/DailyOverview.vue'
+</script>
+
 <template>
-  <div>
+  <div class="dashboard-container">
+    <h1 class="mb-4">Dashboard</h1>
+
+    <DailyOverview />
   </div>
 </template>
 
-<script>
-export default {
-  name: "Dashboard"
-};
-</script>
+<style scoped>
+.dashboard-container {
+  padding: 2rem;
+}
+</style>
