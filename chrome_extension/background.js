@@ -24,6 +24,7 @@ chrome.identity.getProfileUserInfo({ accountStatus: 'ANY' }, (userInfo) => {
     console.log("Chrome User Email:", userInfo.email);
     console.log("Chrome User ID:", userInfo.id);
     userEmail = userInfo.email;
+    refreshBlockedDomains();
   } else {
     console.log("User is not signed into Chrome or hasn't granted permission.");
   }
@@ -40,6 +41,7 @@ const db = getFirestore(app);
 let activeTab = null;
 let startTime = null;
 let currentSessionId = null;
+let blocked_domains = [];
 
 // Helper to get domain from URL
 function getDomain(url) {
@@ -49,6 +51,7 @@ function getDomain(url) {
     return null;
   }
 }
+
 async function findUserByEmail(email) {
   try {
     const usersRef = collection(db, "users");
@@ -63,6 +66,30 @@ async function findUserByEmail(email) {
   } catch (error) {
     console.error("Failed to find user:", error);
     return null;
+  }
+}
+async function refreshBlockedDomains() {
+  try {
+    const userId = await findUserByEmail(userEmail);
+    if (!userId) {
+      console.error("User not found, can't refresh blocked domains");
+      return [];
+    }
+    const domainsRef = collection(db, "users", userId, "domains");
+    const q = query(domainsRef, where("category", "==", "not_productive"));
+    const querySnapshot = await getDocs(q);
+
+    const domains = [];
+    querySnapshot.forEach((doc) => {
+      domains.push(doc.data().name);
+    });
+
+    blocked_domains = domains;
+    console.log("Blocked domains refreshed:", blocked_domains);
+    return blocked_domains;
+  } catch (error) {
+    console.error("Failed to refresh blocked domains:", error);
+    return [];
   }
 }
 
@@ -85,6 +112,9 @@ async function saveEntry(entryData) {
 // duration in seconds
 async function startSession(intendedDuration = 0, name = "") {
   try {
+    // refresh the domain list at the start of a sessio, makes sense to do it here
+    await refreshBlockedDomains();
+
     const userId = await findUserByEmail(userEmail);
     if (!userId) {
         console.error("User not found in db, can't start session");
@@ -119,7 +149,6 @@ async function endSession() {
         console.error("User not found in db, can't end session");
         return null;
     }
-    
     try {
         const sessionRef = doc(db, "users", userId, "sessions", currentSessionId);
         const sessionSnap = await getDoc(sessionRef);
@@ -143,6 +172,10 @@ async function endSession() {
 }
 
 function handleTabChange(tabId) {
+    if (tabId === undefined || tabId === null || tabId < 0) {
+        console.log("Skipping invalid tab ID:", tabId);
+    return;
+  }
   chrome.tabs.get(tabId, async (tab) => {
     if (chrome.runtime.lastError || !tab) return;
 
@@ -151,6 +184,7 @@ function handleTabChange(tabId) {
       const endTime = Date.now();
       const duration = Math.floor((endTime - startTime));
       const domain = getDomain(activeTab.url);
+
       
       const entryData = {
         userId: userEmail,
@@ -224,7 +258,7 @@ chrome.idle.onStateChanged.addListener((state) => {
   }
 });
 
-// Handle messages from popup
+// Handle messages from popup adn content script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'startSession') {
     console.log("Starting session with duration:", message.duration, "and name:", message.name);
@@ -259,6 +293,21 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       hasActiveSession: !!currentSessionId,
       sessionId: currentSessionId 
     });
+  }
+
+  if (message.type === 'isDomainBlocked') {
+    // Check if domain is blocked
+   let isBlocked = false;
+    // has to be in a valid session
+    if (currentSessionId && message.domain) {
+        blocked_domains.forEach((domain) => {
+            if (message.domain === domain || message.domain.endsWith('.' + domain)) {
+                isBlocked = true;
+            }
+        });
+    }
+    sendResponse({ blocked: isBlocked });
+    return true;
   }
 });
 
