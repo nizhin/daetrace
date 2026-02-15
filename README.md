@@ -1,38 +1,25 @@
-# daetrace
+# daeTrace
 
-This template should help get you started developing with Vue 3 in Vite.
 
-## Recommended IDE Setup
+**daeTrace** is a dual-platform productivity suite consisting of a **Chrome Extension** and a **Web Dashboard**. It reframes productivity not as a struggle to "end" bad habits through force, but as a continuous process of **"mending"** one's relationship with time and attention.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Setup and Installation
 
-## Recommended Browser Setup
+Web Dashboard:
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+Navigate to https://daetrace1.web.app/
 
-## Customize configuration
+Chrome Extension:
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+Download the chrome_extension folder from the git repo
 
-## Project Setup
+Navigate to extensions in chrome
 
-```sh
-npm install
-```
+Enable developer mode
 
-### Compile and Hot-Reload for Development
+Click load unpacked and select the extension folder
 
-```sh
-npm run dev
-```
+You can then pin the extension for easy access
 
-### Compile and Minify for Production
 
-```sh
-npm run build
-```
+
